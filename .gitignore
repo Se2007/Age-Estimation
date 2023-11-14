@@ -9,3 +9,6 @@ wandb-key.txt
 \model
 /UTKFace_inthewild
 yolov5s6.pt
+
+/benchmarks
+/save_model

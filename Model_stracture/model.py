@@ -534,7 +534,7 @@ class MIVolo(nn.Module):#VOLO
     
 
 def test(model, device = 'cpu'):
-  with torch.no_grad():
+#   with torch.no_grad():
     fr = model.to(device)
     print(fr(torch.randn((12,3,128,128),device=device)).shape)
 #   fr(next(iter(train_loader))[0].to((device))).shape
@@ -551,10 +551,12 @@ def get_parameters(model, device = 'cpu'):
   
 
 if __name__ == '__main__':
-    # model = Resnet(120)
-
-    # test(model, device='cuda')
-    # get_parameters(model)
+    model = Resnet(120)
+    s = time.time()
+    test(model, device='cuda')
+    e = time.time()
+    print('time : ' ,e-s)
+    get_parameters(model)
 
     '''
     v = MultiHeadAttention(4, 4)
@@ -569,7 +571,7 @@ if __name__ == '__main__':
     mlp_ratios = [3, 3, 3, 3]
     downsamples = [True, False, False, False] # do downsampling after first block
     outlook_attention = [True, False, False, False ]
-    s = time.time()
+    
     miv = MIVolo(layers,
                  embed_dims=embed_dims,
                  num_heads=num_heads,
@@ -578,10 +580,12 @@ if __name__ == '__main__':
                  outlook_attention=outlook_attention,
                  post_layers=['ca', 'ca'],
                  )
+    s = time.time()
     print(miv(torch.randn(32,3,224,224), torch.randn(32,3,224,224)).shape)
-    get_parameters(miv)
+    # get_parameters(miv)
     e = time.time()
     print('time : ' ,e-s)
+    
     # print(miv)
 
     s = time.time()
